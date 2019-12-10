@@ -150,6 +150,7 @@ function size(ls) {
     let currNode = ls.head;
     let count = 0;
     while (currNode !== null) {
+        console.log(count)
         count++;
         currNode = currNode.next;
     }
@@ -257,10 +258,11 @@ function mergeSort(ls) {
     if (ls.next === null) {
         return ls;
     }
+    //console.log('ls ', ls)
 
     let count = size(ls);
-    let leftPart = ls;
-    let leftPtr = ls;
+    let leftPart = ls.head;
+    let leftPtr = ls.head;
     let rightPart = null;
     let righPtr = null;
 
