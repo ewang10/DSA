@@ -149,8 +149,8 @@ function display(ls) {
 function size(ls) {
     let currNode = ls.head;
     let count = 0;
-    while (currNode !== null) {
-        console.log(count)
+    while (currNode) {
+        //console.log(count)
         count++;
         currNode = currNode.next;
     }
@@ -254,62 +254,49 @@ function cycleList(ls) {
     return false;
 }
 
-function mergeSort(ls) {
-    if (ls.next === null) {
-        return ls;
-    }
-    //console.log('ls ', ls)
 
-    let count = size(ls);
-    let leftPart = ls.head;
-    let leftPtr = ls.head;
-    let rightPart = null;
-    let righPtr = null;
-
-    let mid = Math.floor(count/2);
-    let count2 = 0;
-    //console.log('mid ', mid)
-    while (count2 < mid) {
-        //console.log('count ', count2)
-        count2++;
-        //console.log(leftPtr)
-        leftPtr = leftPtr.next;
+function mergeSort(head) {
+    if (head === null || head.next === null) {
+        //console.log(head)
+        return head;
     }
-    rightPart = new LinkedList(leftPtr);
-    leftPtr.next = null;
-    return mergeSortHelper(mergeSort(leftPart), mergeSort(rightPart));
+
+    let prev = null;
+    let slow = head;
+    let fast = head;
+    
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next;
+        prev = slow;
+        slow = slow.next;
+    }
+
+    prev.next = null;
+
+    const l1 = mergeSort(head);
+    const l2 = mergeSort(slow);
+    return merge(l1, l2);
 }
 
-function mergeSortHelper(left, right) {
-    let result = new LinkedList();
-    let resultPtr = result.head;
-    let leftPtr = left;
-    let rightPtr = right;
+function merge(l1, l2) {
+    const head = new LinkedList();
+    let current = head;
 
-    while(leftPtr && rightPtr) {
-        let tempNode = null;
-        if(leftPtr.value > rightPtr.value) {
-            tempNode = rightPtr.value;
-            rightPtr = rightPtr.next;
+    while (l1 !== null && l2 !== null) {
+        if (l1.value < l2.value) {
+            current.next = l1;
+            l1 = l1.next;
         } else {
-            tempNode = leftPtr.value;
-            leftPtr = leftPtr.next;
+            current.next = l2;
+            l2 = l2.next;
         }
-        if (result.head === null) {
-            result.head = new Node(tempNode, null);
-            resultPtr = result.head;
-        } else {
-            resultPtr.next = new Node(tempNode, null);
-            resultPtr = resultPtr.next;
-        }
+        current = current.next;
+        console.log('current ', current)
     }
 
-    resultPtr.next = leftPtr;
-    while (resultPtr.next) {
-        resultPtr = resultPtr.next;
-        resultPtr.next = rightPtr;
-    }
-    return result;
+    current.next = (l1 === null) ? l2 : l1;
+    //console.log('head next ', head.next)
+    return head.next;
 }
 
 function main() {
@@ -326,10 +313,11 @@ function main() {
     SSL.insertAt(3, "Kat");
     SSL.remove("Tauhida");
     display(SSL);
-    display(mergeSort(SSL));
+    console.log(mergeSort(SSL.head));
     //console.log(display(reverseIterative(SSL)));
     //console.log(display(reverseRecursive(SSL.head)));
     
 }
+
 
 main();
