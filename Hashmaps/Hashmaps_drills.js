@@ -78,23 +78,24 @@ function groupAnagram(strings) {
         let value;
         try {
             value = hash.get(key);
-            console.log('vallllllllll ', value)
+            //console.log('vallllllllll ', value)
         } catch (error) {
             flag = true;
         }
         if(flag) {
-            hash.set(key, [str]);
+            hash.set(key, []);
             value = hash.get(key);
         }
-        console.log('before ', hash)
-        console.log('value ', value, str)
+        //console.log('before ', hash)
+        console.log('value ', typeof value, str)
         value = hash.get(key);
-        console.log('key: ', key, 'value: ', value.push(str))
-        const newHashValue = value.push(str);
-        console.log('key: ', key, 'value: ', typeof newHashValue)
-        console.log('new value ', newHashValue)
-        hash.set(key, newHashValue);
-        console.log('after ', hash)
+        //console.log('key: ', key, 'value: ', value.push(str))
+        //const newHashValue = value.push(str);
+        //console.log('key: ', key, 'value: ', typeof newHashValue)
+        //console.log('new value ', newHashValue)
+        value.push(str)
+        hash.set(key, value);
+        //console.log('after ', hash)
     })
 
     const items = Object.values(hash._hashTable);
