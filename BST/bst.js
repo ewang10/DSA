@@ -44,7 +44,7 @@ class BinarySearchTree {
                 const successor = this.right._findMin();
                 this.key = successor.key;
                 this.value = successor.value;
-                this.successor.remove(successor.key);
+                successor.remove(successor.key);
             } else if (this.left) {
                 this._replaceWith(this.left);
             } else if (this.right) {
