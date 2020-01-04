@@ -36,7 +36,7 @@ class Memory {
                 this.set(toIdx + i, this.get(fromIdx + i));
             }
         } else {
-            for (let i = 0; i < size; i++) {
+            for (let i = size - 1; i >= 0; i--) {
                 this.set(toIdx + i, this.get(fromIdx + i));
             }
         }

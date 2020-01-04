@@ -135,6 +135,8 @@ class LinkedList {
 
 }
 
+module.exports = LinkedList;
+
 function display(ls) {
     let currNode = ls.head;
     let res = "";
