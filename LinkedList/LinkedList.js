@@ -184,7 +184,8 @@ function findLast(ls) {
     return currNode.value;
 }
 
-function reverseIterative(ls) {
+function reverseIterative(head) {
+    /*
     if (!ls.head || !ls.head.next) return ls;
     let currNode = ls.head;
     let stack = []
@@ -207,11 +208,30 @@ function reverseIterative(ls) {
         node = stack.pop();
     }
     return reverseLs;
+    */
+  
+
+    if (head === null || head.next === null) {
+        return head;
+    }
+
+    let current = head.next;
+    let reverse = head;
+    reverse.next = null;
+
+    while (current !== null) {
+        let temp = current;
+        current = current.next;
+        temp.next = reverse;
+        reverse = temp;
+    }
+
+    return reverse;
 }
 
 function reverseRecursive(head) {
-    if(head === null || head.next === null) {
-       return head; 
+    if (head === null || head.next === null) {
+        return head;
     }
     let newHead = reverseRecursive(head.next);
     head.next.next = head;
@@ -246,7 +266,7 @@ function cycleList(ls) {
     let tortoise = ls.head;
     let hare = ls.head;
 
-    while(hare && hare.next) {
+    while (hare && hare.next) {
         tortoise = tortoise.next;
         hare = hare.next.next;
         if (tortoise === hare) return true;
@@ -264,7 +284,7 @@ function mergeSort(head) {
     let prev = null;
     let slow = head;
     let fast = head;
-    
+
     while (fast !== null && fast.next !== null) {
         fast = fast.next.next;
         prev = slow;
@@ -314,9 +334,9 @@ function main() {
     SSL.remove("Tauhida");
     display(SSL);
     console.log(mergeSort(SSL.head));
-    //console.log(display(reverseIterative(SSL)));
+    //console.log(display(reverseIterative(SSL.head)));
     //console.log(display(reverseRecursive(SSL.head)));
-    
+
 }
 
 
